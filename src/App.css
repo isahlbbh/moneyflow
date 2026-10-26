@@ -304,3 +304,8 @@
   background: #2c2c30;
   color: #ff7a70;
 }
+.form-error {
+  margin: 0;
+  font-size: 13px;
+  color: #ff7a70;
+}

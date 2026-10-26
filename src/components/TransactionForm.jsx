@@ -1,21 +1,35 @@
 import { useState } from "react";
 import { categories } from "../data/categories";
+import { parseMoney } from "../utils/money";
 
 function TransactionForm({ onAdd }) {
   const [description, setDescription] = useState("");
   const [value, setValue] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("Alimentação");
+  const [error, setError] = useState("");
 
-  function handleAdd() {
-    if (description.trim() === "" || value.trim() === "") return;
+  function handleAdd(event) {
+    event.preventDefault();
+    if (description.trim() === "" || value.trim() === "") {
+      setError("Preencha a descrição e o valor.");
+      return;
+    }
+
+    const number = parseMoney(value);
+    if (Number.isNaN(number) || number <= 0) {
+      setError("Digite um valor válido, como 45,90.");
+      return;
+    }
+
     onAdd(description, value, type, category);
     setDescription("");
     setValue("");
+    setError("");
   }
 
   return (
-    <div className="form">
+    <form className="form" onSubmit={handleAdd}>
       <h2>Nova transação</h2>
       <label className="field">
         Descrição
@@ -56,10 +70,13 @@ function TransactionForm({ onAdd }) {
           ))}
         </select>
       </label>
-      <button className="add-btn" onClick={handleAdd}>
-        Adicionar transação
-      </button>
-    </div>
+      {error && (
+        <p className="form-error" role="alert">
+          {error}
+        </p>
+      )}
+      <button className="add-btn">Adicionar transação</button>
+    </form>
   );
 }
 
