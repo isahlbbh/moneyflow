@@ -96,14 +96,14 @@ function App() {
     );
   }, [transactions]);
 
-  function addTransaction(name, value, type, category) {
+  function addTransaction(name, value, type, category, date) {
     const number = parseMoney(value);
     if (Number.isNaN(number) || number <= 0) return;
 
     const newTransaction = {
       id: Date.now(),
       name: name,
-      date: "18 out",
+      date: date,
       category: category,
       amount: number,
       type: type,

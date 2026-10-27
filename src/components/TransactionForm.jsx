@@ -4,6 +4,7 @@ import { parseMoney } from "../utils/money";
 
 function TransactionForm({ onAdd }) {
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
   const [value, setValue] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("Alimentação");
@@ -11,8 +12,18 @@ function TransactionForm({ onAdd }) {
 
   function handleAdd(event) {
     event.preventDefault();
-    if (description.trim() === "" || value.trim() === "") {
-      setError("Preencha a descrição e o valor.");
+
+    if (
+      description.trim() === "" ||
+      value.trim() === "" ||
+      date.trim() === ""
+    ) {
+      setError("Preencha a descrição, o valor e a data.");
+      return;
+    }
+
+    if (new Date(date) > new Date()) {
+      setError("Digite uma data válida.");
       return;
     }
 
@@ -22,9 +33,10 @@ function TransactionForm({ onAdd }) {
       return;
     }
 
-    onAdd(description, value, type, category);
+    onAdd(description, value, type, category, date);
     setDescription("");
     setValue("");
+    setDate("");
     setError("");
   }
 
@@ -38,6 +50,14 @@ function TransactionForm({ onAdd }) {
           placeholder="Ex.: Mercado"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
+        />
+      </label>
+      <label className="field">
+        Data
+        <input
+          type="date"
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
         />
       </label>
       <label className="field">
