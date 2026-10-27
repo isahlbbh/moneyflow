@@ -1,5 +1,6 @@
 import Icon from "./Icon";
 import { formatMoney } from "../utils/money";
+import { formatDate } from "../utils/date";
 
 function TransactionItem({
   id,
@@ -20,7 +21,7 @@ function TransactionItem({
       <div className="tx-info">
         <div className="tx-name">{name}</div>
         <div className="tx-meta">
-          {date} · {category}
+          {formatDate(date)} · {category}
         </div>
       </div>
       <div
