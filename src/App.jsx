@@ -85,8 +85,12 @@ const initialTransactions = [
 
 function App() {
   const [transactions, setTransactions] = useState(() => {
-    const saved = localStorage.getItem("moneyflow-transactions");
-    return saved ? JSON.parse(saved) : initialTransactions;
+    try {
+      const saved = localStorage.getItem("moneyflow-transactions");
+      return saved ? JSON.parse(saved) : initialTransactions;
+    } catch (error) {
+      return initialTransactions;
+    }
   });
 
   useEffect(() => {
