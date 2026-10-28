@@ -7,6 +7,7 @@ import TransactionItem from "./components/TransactionItem";
 import { categories } from "./data/categories";
 import TransactionForm from "./components/TransactionForm";
 import { parseMoney, formatMoney } from "./utils/money";
+import { formatMonth } from "./utils/date";
 
 const initialTransactions = [
   {
@@ -135,6 +136,10 @@ function App() {
     (t) => selectedMonth === "all" || t.date.startsWith(selectedMonth),
   );
 
+  const availableMonths = [
+    ...new Set(transactions.map((t) => t.date.slice(0, 7))),
+  ];
+
   const expenseCategories = Object.keys(categories).filter(
     (name) => name !== "Renda",
   );
@@ -175,8 +180,11 @@ function App() {
           onChange={(event) => setSelectedMonth(event.target.value)}
         >
           <option value="all">Todos os meses</option>
-          <option value="2026-10">Outubro</option>
-          <option value="2026-11">Novembro</option>
+          {availableMonths.map((month) => (
+            <option key={month} value={month}>
+              {formatMonth(month)}
+            </option>
+          ))}
         </select>
         <div>
           {visibleTransactions.map((t) => {
