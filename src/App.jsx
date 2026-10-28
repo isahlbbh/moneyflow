@@ -122,23 +122,23 @@ function App() {
     setTransactions(transactions.filter((t) => t.id !== id));
   }
 
-  const income = transactions
+  const visibleTransactions = transactions.filter(
+    (t) => selectedMonth === "all" || t.date.startsWith(selectedMonth),
+  );
+
+  const income = visibleTransactions
     .filter((t) => t.type === "income")
     .reduce((sum, t) => sum + t.amount, 0);
 
-  const expense = transactions
+  const expense = visibleTransactions
     .filter((t) => t.type === "expense")
     .reduce((sum, t) => sum + t.amount, 0);
 
   const balance = income - expense;
 
-  const visibleTransactions = transactions.filter(
-    (t) => selectedMonth === "all" || t.date.startsWith(selectedMonth),
-  );
-
   const availableMonths = [
     ...new Set(transactions.map((t) => t.date.slice(0, 7))),
-  ];
+  ].sort();
 
   const expenseCategories = Object.keys(categories).filter(
     (name) => name !== "Renda",
@@ -150,12 +150,16 @@ function App() {
       <main className="main">
         <header className="topbar">
           <h1>Visão geral</h1>
-          <span className="month">Outubro 2026</span>
+          <span className="month">
+            {selectedMonth === "all"
+              ? "Todos os meses"
+              : formatMonth(selectedMonth)}
+          </span>
         </header>
         <BalanceCard income={income} expense={expense} balance={balance} />
         <div className="cats">
           {expenseCategories.map((name) => {
-            const total = transactions
+            const total = visibleTransactions
               .filter((t) => t.type === "expense" && t.category === name)
               .reduce((sum, t) => sum + t.amount, 0);
 
