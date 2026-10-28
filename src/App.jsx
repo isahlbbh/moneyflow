@@ -12,7 +12,7 @@ const initialTransactions = [
   {
     id: 1,
     name: "Cinema",
-    date: "17 out",
+    date: "2026-10-17",
     category: "Lazer",
     amount: 89.9,
     type: "expense",
@@ -20,7 +20,7 @@ const initialTransactions = [
   {
     id: 2,
     name: "Farmácia",
-    date: "16 out",
+    date: "2026-10-16",
     category: "Saúde",
     amount: 93.5,
     type: "expense",
@@ -28,7 +28,7 @@ const initialTransactions = [
   {
     id: 3,
     name: "Internet",
-    date: "16 out",
+    date: "2026-10-16",
     category: "Moradia",
     amount: 99.9,
     type: "expense",
@@ -36,7 +36,7 @@ const initialTransactions = [
   {
     id: 4,
     name: "Restaurante",
-    date: "15 out",
+    date: "2026-10-15",
     category: "Alimentação",
     amount: 215.2,
     type: "expense",
@@ -44,7 +44,7 @@ const initialTransactions = [
   {
     id: 5,
     name: "Uber",
-    date: "14 out",
+    date: "2026-10-14",
     category: "Transporte",
     amount: 148.6,
     type: "expense",
@@ -52,7 +52,7 @@ const initialTransactions = [
   {
     id: 6,
     name: "Freelance site",
-    date: "12 out",
+    date: "2026-10-12",
     category: "Renda",
     amount: 700,
     type: "income",
@@ -60,7 +60,7 @@ const initialTransactions = [
   {
     id: 7,
     name: "Aluguel",
-    date: "10 out",
+    date: "2026-10-10",
     category: "Moradia",
     amount: 1100,
     type: "expense",
@@ -68,7 +68,7 @@ const initialTransactions = [
   {
     id: 8,
     name: "Mercado",
-    date: "08 out",
+    date: "2026-10-08",
     category: "Alimentação",
     amount: 612.4,
     type: "expense",
@@ -76,7 +76,7 @@ const initialTransactions = [
   {
     id: 9,
     name: "Salário",
-    date: "05 out",
+    date: "2026-10-05",
     category: "Renda",
     amount: 4500,
     type: "income",
@@ -92,6 +92,8 @@ function App() {
       return initialTransactions;
     }
   });
+
+  const [selectedMonth, setSelectedMonth] = useState("all");
 
   useEffect(() => {
     localStorage.setItem(
@@ -129,6 +131,10 @@ function App() {
 
   const balance = income - expense;
 
+  const visibleTransactions = transactions.filter(
+    (t) => selectedMonth === "all" || t.date.startsWith(selectedMonth),
+  );
+
   const expenseCategories = Object.keys(categories).filter(
     (name) => name !== "Renda",
   );
@@ -163,8 +169,17 @@ function App() {
       <section className="panel">
         <TransactionForm onAdd={addTransaction} />
         <h2>Últimas transações</h2>
+        <select
+          className="month-filter"
+          value={selectedMonth}
+          onChange={(event) => setSelectedMonth(event.target.value)}
+        >
+          <option value="all">Todos os meses</option>
+          <option value="2026-10">Outubro</option>
+          <option value="2026-11">Novembro</option>
+        </select>
         <div>
-          {transactions.map((t) => {
+          {visibleTransactions.map((t) => {
             const info = categories[t.category];
             return (
               <TransactionItem

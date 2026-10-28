@@ -272,7 +272,8 @@
   color: #a1a1aa;
 }
 .field input,
-.field select {
+.field select,
+.month-filter {
   min-height: 44px;
   padding: 0 12px;
   border: 1px solid #3a3a40;
@@ -280,6 +281,10 @@
   background: #26262a;
   color: #f4f4f5;
   font: inherit;
+}
+.month-filter {
+  width: 100%;
+  margin-bottom: 12px;
 }
 .preview {
   margin: 0;
