@@ -18,6 +18,7 @@
 .panel {
   background: #18181a;
 }
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -63,21 +64,23 @@
   color: #0a0a0b;
 }
 
-.topbar{
+.topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.topbar h1{
+.topbar h1 {
   margin: 0;
   font-size: 28px;
   font-weight: 800;
 }
+
 .month {
   color: #a1a1aa;
   font-weight: 600;
 }
+
 .main {
   display: flex;
   flex-direction: column;
@@ -125,50 +128,7 @@
 .expense {
   color: #ff7a70;
 }
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 0;
-}
 
-.logo {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  background: #e2ffb0;
-  color: #111;
-  font-weight: 800;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-btn {
-  width: 48px;
-  height: 48px;
-  border: 0;
-  border-radius: 14px;
-  background: transparent;
-  color: #a1a1aa;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-btn:hover {
-  background: #2c2c30;
-  color: #f4f4f5;
-}
-
-.nav-btn.active {
-  background: #f4f4f5;
-  color: #0a0a0b;
-}
 .cats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -201,6 +161,7 @@
   font-size: 13px;
   font-weight: 500;
 }
+
 .panel h2 {
   margin: 0 0 12px;
   font-size: 16px;
@@ -246,6 +207,7 @@
   font-size: 14px;
   white-space: nowrap;
 }
+
 .add-btn {
   width: 100%;
   min-height: 44px;
@@ -258,12 +220,14 @@
   font-weight: 700;
   cursor: pointer;
 }
+
 .form {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 24px;
 }
+
 .field {
   display: flex;
   flex-direction: column;
@@ -271,6 +235,7 @@
   font-size: 13px;
   color: #a1a1aa;
 }
+
 .field input,
 .field select,
 .month-filter {
@@ -282,15 +247,18 @@
   color: #f4f4f5;
   font: inherit;
 }
+
 .month-filter {
   width: 100%;
   margin-bottom: 12px;
 }
+
 .preview {
   margin: 0;
   font-size: 13px;
   color: #a1a1aa;
 }
+
 .tx-delete {
   width: 44px;
   height: 44px;
@@ -309,11 +277,13 @@
   background: #2c2c30;
   color: #ff7a70;
 }
+
 .form-error {
   margin: 0;
   font-size: 13px;
   color: #ff7a70;
 }
+
 .chart {
   margin-top: 20px;
   padding: 20px;
@@ -348,4 +318,26 @@
 .chart-value {
   text-align: right;
   color: #f4f4f5;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .logo {
+    margin-bottom: 0;
+  }
+
+  .chart-row {
+    grid-template-columns: 90px 1fr 80px;
+  }
 }
