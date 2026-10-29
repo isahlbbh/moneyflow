@@ -1,17 +1,22 @@
 # MoneyFlow
 
-Aplicativo de finanças pessoais feito com React. Registre entradas e despesas e acompanhe o saldo do mês.
+Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, filtre por mês e acompanhe o saldo e os gastos por categoria.
 
 **Demo:** https://moneyflow-umber-iota.vercel.app/
+
 ![Tela do MoneyFlow](./screenshots/moneyflow.png)
 
 ## Funcionalidades
 
-- Adicionar transações com descrição, valor, tipo (entrada ou despesa) e categoria
+- Adicionar transações com descrição, data, valor, tipo (entrada ou despesa) e categoria
+- Validação do formulário: campos obrigatórios, valor válido e data que não pode ser no futuro
 - Apagar transações
-- Saldo, entradas e despesas calculados automaticamente
-- Cards de gastos por categoria, calculados a partir da lista
-- Dados salvos no navegador (localStorage), sem perder nada ao atualizar a página
+- Filtro por mês, com as opções geradas automaticamente a partir das transações
+- Saldo, entradas, despesas e cards de categoria que acompanham o mês escolhido
+- Gráfico de barras de gastos por categoria, feito só com HTML e CSS
+- Mensagem quando não há transações para mostrar
+- Dados salvos no navegador (localStorage), com proteção contra dados corrompidos
+- Layout responsivo, que funciona no celular
 
 ## Tecnologias
 
@@ -34,11 +39,14 @@ Aplicativo de finanças pessoais feito com React. Registre entradas e despesas e
 - Formulários controlados, com um estado para cada campo
 - Avisar o componente pai com funções passadas por props
 - Formatar dinheiro com `toLocaleString`
+- Validar dados do usuário antes de salvar
+- Tratar erros com `try/catch` para o app não quebrar
+- Remover repetidos com `Set` e ordenar listas com `.sort()`
+- Derivar uma lista filtrada a partir do estado, para a tela inteira acompanhar uma única escolha
+- Criar um gráfico sem biblioteca, calculando a largura das barras em porcentagem
+- Fazer layouts responsivos com media queries
 
 ## Próximas melhorias
 
-- Campo de data
-- Filtros por tipo, categoria e mês
 - Editar transações
-- Gráficos
-- Versão para celular
+- Filtros por tipo e categoria
