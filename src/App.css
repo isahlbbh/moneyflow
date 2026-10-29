@@ -314,3 +314,38 @@
   font-size: 13px;
   color: #ff7a70;
 }
+.chart {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: #1c1c1f;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 90px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.chart-label {
+  color: #f4f4f5;
+}
+
+.chart-track {
+  height: 12px;
+  border-radius: 999px;
+  background: #26262a;
+  overflow: hidden;
+}
+
+.chart-bar {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.chart-value {
+  text-align: right;
+  color: #f4f4f5;
+}

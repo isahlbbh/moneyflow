@@ -8,6 +8,7 @@ import { categories } from "./data/categories";
 import TransactionForm from "./components/TransactionForm";
 import { parseMoney, formatMoney } from "./utils/money";
 import { formatMonth } from "./utils/date";
+import ExpenseChart from "./components/ExpenseChart";
 
 const initialTransactions = [
   {
@@ -150,6 +151,14 @@ function App() {
     (name) => name !== "Renda",
   );
 
+  const categoryTotals = expenseCategories.map((name) => ({
+    name: name,
+    color: categories[name].color,
+    total: visibleTransactions
+      .filter((t) => t.type === "expense" && t.category === name)
+      .reduce((sum, t) => sum + t.amount, 0),
+  }));
+
   return (
     <div className="shell">
       <Sidebar />
@@ -180,6 +189,7 @@ function App() {
             );
           })}
         </div>
+        <ExpenseChart data={categoryTotals} />
       </main>
       <section className="panel">
         <TransactionForm onAdd={addTransaction} />
