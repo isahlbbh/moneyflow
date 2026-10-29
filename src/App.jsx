@@ -140,6 +140,12 @@ function App() {
     ...new Set(transactions.map((t) => t.date.slice(0, 7))),
   ].sort();
 
+  useEffect(() => {
+    if (selectedMonth !== "all" && !availableMonths.includes(selectedMonth)) {
+      setSelectedMonth("all");
+    }
+  }, [transactions, selectedMonth]);
+
   const expenseCategories = Object.keys(categories).filter(
     (name) => name !== "Renda",
   );
@@ -191,6 +197,13 @@ function App() {
           ))}
         </select>
         <div>
+          {visibleTransactions.length === 0 && (
+            <p className="empty">
+              {selectedMonth === "all"
+                ? "Nenhuma transação ainda."
+                : "Nenhuma transação neste mês."}
+            </p>
+          )}
           {visibleTransactions.map((t) => {
             const info = categories[t.category];
             return (
