@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { categories } from "../data/categories";
 import { parseMoney } from "../utils/money";
 
-function TransactionForm({ onAdd }) {
+function TransactionForm({ onAdd, onSave, onCancel, editingTransaction }) {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [value, setValue] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("Alimentação");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (editingTransaction) {
+      setDescription(editingTransaction.name);
+      setDate(editingTransaction.date);
+      setValue(String(editingTransaction.amount).replace(".", ","));
+      setType(editingTransaction.type);
+      setCategory(editingTransaction.category);
+      setError("");
+    }
+  }, [editingTransaction]);
 
   function handleAdd(event) {
     event.preventDefault();
@@ -33,16 +44,31 @@ function TransactionForm({ onAdd }) {
       return;
     }
 
-    onAdd(description, value, type, category, date);
+    if (editingTransaction) {
+      onSave(description, value, type, category, date);
+    } else {
+      onAdd(description, value, type, category, date);
+    }
     setDescription("");
     setValue("");
     setDate("");
     setError("");
   }
 
+  function handleCancel() {
+    onCancel();
+    setDescription("");
+    setDate("");
+    setValue("");
+    setType("expense");
+    setCategory("Alimentação");
+    setError("");
+  }
+
   return (
     <form className="form" onSubmit={handleAdd}>
-      <h2>Nova transação</h2>
+      {/* NOVO: o título muda conforme o modo */}
+      <h2>{editingTransaction ? "Editar transação" : "Nova transação"}</h2>
       <label className="field">
         Descrição
         <input
@@ -95,7 +121,18 @@ function TransactionForm({ onAdd }) {
           {error}
         </p>
       )}
-      <button className="add-btn">Adicionar transação</button>
+      <button className="add-btn">
+        {editingTransaction ? "Salvar alterações" : "Adicionar transação"}
+      </button>
+      {editingTransaction && (
+        <button
+          type="button"
+          className="add-btn cancel-btn"
+          onClick={handleCancel}
+        >
+          Cancelar
+        </button>
+      )}
     </form>
   );
 }

@@ -12,6 +12,7 @@ function TransactionItem({
   color,
   icon,
   onDelete,
+  onEdit,
 }) {
   return (
     <div className="tx">
@@ -30,6 +31,13 @@ function TransactionItem({
         {type === "income" ? "+" : "−"}
         {formatMoney(amount)}
       </div>
+      <button
+        className="tx-delete"
+        aria-label={`Editar ${name}`}
+        onClick={() => onEdit(id)}
+      >
+        <Icon d="M4 20h4L19 9l-4-4L4 16v4zM13 7l4 4" />
+      </button>
       <button
         className="tx-delete"
         aria-label={`Excluir ${name}`}

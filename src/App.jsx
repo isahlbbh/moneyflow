@@ -101,6 +101,8 @@ function App() {
 
   const [selectedCategory, setSelectedCategory] = useState("all");
 
+  const [editingId, setEditingId] = useState(null);
+
   useEffect(() => {
     localStorage.setItem(
       "moneyflow-transactions",
@@ -126,6 +128,31 @@ function App() {
   function deleteTransaction(id) {
     setTransactions(transactions.filter((t) => t.id !== id));
   }
+
+  // NOVO: troca a transação antiga pela editada
+  function updateTransaction(name, value, type, category, date) {
+    const number = parseMoney(value);
+    if (Number.isNaN(number) || number <= 0) return;
+
+    setTransactions(
+      transactions.map((t) =>
+        t.id === editingId
+          ? {
+              id: t.id,
+              name: name,
+              date: date,
+              category: category,
+              amount: number,
+              type: type,
+            }
+          : t,
+      ),
+    );
+    setEditingId(null);
+  }
+
+  // NOVO: acha a transação inteira que está em edição
+  const editingTransaction = transactions.find((t) => t.id === editingId);
 
   const visibleTransactions = transactions.filter(
     (t) => selectedMonth === "all" || t.date.startsWith(selectedMonth),
@@ -202,7 +229,13 @@ function App() {
         <ExpenseChart data={categoryTotals} />
       </main>
       <section className="panel">
-        <TransactionForm onAdd={addTransaction} />
+        {/* NOVO: entrega onSave e editingTransaction ao formulário */}
+        <TransactionForm
+          onAdd={addTransaction}
+          onSave={updateTransaction}
+          onCancel={() => setEditingId(null)}
+          editingTransaction={editingTransaction}
+        />
         <h2>Últimas transações</h2>
         <select
           className="month-filter"
@@ -259,6 +292,7 @@ function App() {
                 color={info.color}
                 icon={info.icon}
                 onDelete={deleteTransaction}
+                onEdit={setEditingId}
               />
             );
           })}

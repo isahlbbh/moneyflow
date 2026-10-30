@@ -319,6 +319,11 @@
   text-align: right;
   color: #f4f4f5;
 }
+.cancel-btn {
+  background: transparent;
+  border: 1px solid #3a3a40;
+  color: #f4f4f5;
+}
 
 @media (max-width: 900px) {
   .shell {
