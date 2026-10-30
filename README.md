@@ -1,6 +1,6 @@
 # MoneyFlow
 
-Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, filtre por mês e acompanhe o saldo e os gastos por categoria.
+Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, filtre por mês, tipo e categoria, e acompanhe o saldo e os gastos por categoria.
 
 **Demo:** https://moneyflow-umber-iota.vercel.app/
 
@@ -9,15 +9,16 @@ Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, 
 ## Funcionalidades
 
 - Adicionar transações com descrição, data, valor, tipo (entrada ou despesa) e categoria
-- Validação do formulário: campos obrigatórios, valor válido e data que não pode ser no futuro
+- Editar transações já cadastradas, com opção de cancelar
 - Apagar transações
-- Filtro por mês, com as opções geradas automaticamente a partir das transações
+- Validação do formulário: campos obrigatórios, valor válido e data que não pode ser no futuro
+- Filtros combinados por mês, tipo (entrada ou despesa) e categoria
+- Opções do filtro de mês geradas automaticamente a partir das transações
 - Saldo, entradas, despesas e cards de categoria que acompanham o mês escolhido
 - Gráfico de barras de gastos por categoria, feito só com HTML e CSS
 - Mensagem quando não há transações para mostrar
 - Dados salvos no navegador (localStorage), com proteção contra dados corrompidos
 - Layout responsivo, que funciona no celular
-- Filtros combinados por mês, tipo (entrada ou despesa) e categoria
 
 ## Tecnologias
 
@@ -44,9 +45,12 @@ Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, 
 - Tratar erros com `try/catch` para o app não quebrar
 - Remover repetidos com `Set` e ordenar listas com `.sort()`
 - Derivar uma lista filtrada a partir do estado, para a tela inteira acompanhar uma única escolha
+- Combinar vários filtros ao mesmo tempo
+- Reaproveitar o mesmo formulário para criar e editar, usando `.find()` e `.map()` para localizar e trocar um item da lista
 - Criar um gráfico sem biblioteca, calculando a largura das barras em porcentagem
 - Fazer layouts responsivos com media queries
 
 ## Próximas melhorias
 
-- Editar transações
+- Menu lateral funcional
+- Exportar transações
