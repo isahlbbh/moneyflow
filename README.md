@@ -17,6 +17,7 @@ Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, 
 - Mensagem quando não há transações para mostrar
 - Dados salvos no navegador (localStorage), com proteção contra dados corrompidos
 - Layout responsivo, que funciona no celular
+- Filtros combinados por mês, tipo (entrada ou despesa) e categoria
 
 ## Tecnologias
 
@@ -49,4 +50,3 @@ Aplicativo de finanças pessoais feito com React. Registre entradas e despesas, 
 ## Próximas melhorias
 
 - Editar transações
-- Filtros por tipo e categoria
