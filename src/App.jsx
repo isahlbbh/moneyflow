@@ -99,6 +99,8 @@ function App() {
 
   const [selectedType, setSelectedType] = useState("all");
 
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   useEffect(() => {
     localStorage.setItem(
       "moneyflow-transactions",
@@ -130,7 +132,9 @@ function App() {
   );
 
   const listedTransactions = visibleTransactions.filter(
-    (t) => selectedType === "all" || t.type === selectedType,
+    (t) =>
+      (selectedType === "all" || t.type === selectedType) &&
+      (selectedCategory === "all" || t.category === selectedCategory),
   );
 
   const income = visibleTransactions
@@ -220,6 +224,18 @@ function App() {
           <option value="all">Todos os tipos</option>
           <option value="income">Entradas</option>
           <option value="expense">Despesas</option>
+        </select>
+        <select
+          className="month-filter"
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}
+        >
+          <option value="all">Todas as categorias</option>
+          {Object.keys(categories).map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
         </select>
         <div>
           {listedTransactions.length === 0 && (
